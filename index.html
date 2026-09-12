@@ -1,0 +1,1051 @@
+<title>Make a Wish</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<meta name="theme-color" content="#8C4A6B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Wish">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F6F3ED;
+    --surface: #FFFFFF;
+    --surface-2: #FBF8F2;
+    --ink: #2A2420;
+    --ink-soft: #736B60;
+    --ink-faint: #A69C8D;
+    --border: #E7E0D3;
+    --accent: #8C4A6B;
+    --accent-ink: #FFFFFF;
+    --accent-soft: #F2E3EA;
+    --success: #3F7A5C;
+    --success-soft: #E4EFE8;
+    --danger: #B0503F;
+    --shadow: 0 1px 2px rgba(42,36,32,.06), 0 6px 20px -8px rgba(42,36,32,.18);
+
+    --cat-travel: #2F7A8C;
+    --cat-travel-soft: #E3EEF0;
+    --cat-shopping: #A9791C;
+    --cat-shopping-soft: #F3ECDA;
+    --cat-todo: #4B5E93;
+    --cat-todo-soft: #E6E9F3;
+    --cat-outings: #B15C3D;
+    --cat-outings-soft: #F5E7E0;
+    --cat-movies: #8C4A6B;
+    --cat-movies-soft: #F2E3EA;
+    --cat-newyear: #2E6B52;
+    --cat-newyear-soft: #E1EDE7;
+    --cat-custom: #6B6258;
+    --cat-custom-soft: #ECE7DE;
+
+    --font-display: "Sora", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+    --font-body: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1E1A17;
+      --surface: #26211D;
+      --surface-2: #2C2621;
+      --ink: #F1EBE2;
+      --ink-soft: #BDB2A2;
+      --ink-faint: #8A7F71;
+      --border: #3B342C;
+      --accent: #D98FB2;
+      --accent-ink: #241017;
+      --accent-soft: #3A2530;
+      --success: #7FC39E;
+      --success-soft: #24352C;
+      --danger: #E28E78;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 24px -10px rgba(0,0,0,.5);
+
+      --cat-travel: #6FC4DA;
+      --cat-travel-soft: #1E3238;
+      --cat-shopping: #E0B24A;
+      --cat-shopping-soft: #382E1C;
+      --cat-todo: #9CACE0;
+      --cat-todo-soft: #262C42;
+      --cat-outings: #E0916E;
+      --cat-outings-soft: #3A2820;
+      --cat-movies: #D98FB2;
+      --cat-movies-soft: #3A2530;
+      --cat-newyear: #6FC49E;
+      --cat-newyear-soft: #1F3128;
+      --cat-custom: #BDB2A2;
+      --cat-custom-soft: #322C25;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1E1A17;
+    --surface: #26211D;
+    --surface-2: #2C2621;
+    --ink: #F1EBE2;
+    --ink-soft: #BDB2A2;
+    --ink-faint: #8A7F71;
+    --border: #3B342C;
+    --accent: #D98FB2;
+    --accent-ink: #241017;
+    --accent-soft: #3A2530;
+    --success: #7FC39E;
+    --success-soft: #24352C;
+    --danger: #E28E78;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 24px -10px rgba(0,0,0,.5);
+
+    --cat-travel: #6FC4DA;
+    --cat-travel-soft: #1E3238;
+    --cat-shopping: #E0B24A;
+    --cat-shopping-soft: #382E1C;
+    --cat-todo: #9CACE0;
+    --cat-todo-soft: #262C42;
+    --cat-outings: #E0916E;
+    --cat-outings-soft: #3A2820;
+    --cat-movies: #D98FB2;
+    --cat-movies-soft: #3A2530;
+    --cat-newyear: #6FC49E;
+    --cat-newyear-soft: #1F3128;
+    --cat-custom: #BDB2A2;
+    --cat-custom-soft: #322C25;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    padding-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
+  }
+  h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+  button { font-family: inherit; }
+  input, select { font-family: inherit; font-size: 1rem; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .app {
+    max-width: 640px;
+    margin: 0 auto;
+    padding-block: 18px 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-mark {
+    width: 38px; height: 38px; border-radius: 11px;
+    background: linear-gradient(155deg, var(--accent), var(--cat-newyear));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.15rem; flex-shrink: 0;
+    box-shadow: var(--shadow);
+  }
+  .brand h1 { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em; }
+  .icon-btn {
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 1px solid var(--border); background: var(--surface);
+    color: var(--ink); font-size: 1.05rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .15s ease, background .15s ease;
+  }
+  .icon-btn:hover { background: var(--surface-2); }
+  .icon-btn:active { transform: scale(.94); }
+
+  .tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    flex: 0 0 auto;
+    display: flex; align-items: center; gap: 6px;
+    padding: 9px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--ink-soft);
+    font-size: .9rem; font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .tab .emoji { font-size: 1rem; }
+  .tab.active {
+    background: var(--cat-soft, var(--accent-soft));
+    color: var(--cat-color, var(--accent));
+    border-color: transparent;
+    font-weight: 600;
+  }
+  .tab.add-tab {
+    color: var(--ink-faint);
+    font-weight: 600;
+  }
+
+  .content { display: flex; flex-direction: column; gap: 14px; }
+
+  .quickadd {
+    display: flex;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 10px;
+    box-shadow: var(--shadow);
+    flex-wrap: wrap;
+  }
+  .quickadd input[type="text"] {
+    flex: 1 1 200px;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    padding: 8px 6px;
+    color: var(--ink);
+  }
+  .quickadd input[type="text"]::placeholder { color: var(--ink-faint); }
+  .quickadd select {
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--ink);
+    border-radius: 10px;
+    padding: 8px 10px;
+    max-width: 130px;
+  }
+  .add-btn {
+    border: none;
+    background: var(--cat-color, var(--accent));
+    color: var(--accent-ink);
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-weight: 600;
+    font-size: .92rem;
+    cursor: pointer;
+    transition: transform .12s ease, opacity .15s ease;
+  }
+  .add-btn:hover { opacity: .92; }
+  .add-btn:active { transform: scale(.96); }
+  .add-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+  .item-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--cat-color, var(--accent));
+    border-radius: 12px;
+    padding: 12px 12px;
+    box-shadow: var(--shadow);
+  }
+  .item.done { opacity: .58; }
+  .item-check {
+    flex: 0 0 auto;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: var(--surface);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--success);
+    font-size: .82rem;
+    margin-top: 1px;
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .item.done .item-check {
+    background: var(--success-soft);
+    border-color: var(--success);
+  }
+  .item-body { flex: 1; min-width: 0; }
+  .item-text {
+    font-size: .98rem;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+  .item.done .item-text { text-decoration: line-through; color: var(--ink-soft); }
+  .item-meta {
+    margin-top: 4px;
+    display: flex; align-items: center; gap: 8px;
+    font-size: .78rem;
+    color: var(--ink-faint);
+  }
+  .author-chip {
+    background: var(--surface-2);
+    border-radius: 999px;
+    padding: 2px 9px;
+    font-weight: 500;
+    color: var(--ink-soft);
+  }
+  .item-delete {
+    flex: 0 0 auto;
+    border: none;
+    background: transparent;
+    color: var(--ink-faint);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 8px;
+  }
+  .item-delete:hover { color: var(--danger); background: var(--surface-2); }
+
+  .state-block {
+    text-align: center;
+    padding: 46px 16px;
+    color: var(--ink-soft);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .state-block .glyph { font-size: 2rem; }
+  .state-block h3 { font-size: 1.05rem; color: var(--ink); font-weight: 600; }
+  .state-block p { margin: 0; font-size: .9rem; max-width: 32ch; }
+
+  /* Settings sheet */
+  .sheet-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(20,16,14,.42);
+    backdrop-filter: blur(1px);
+    z-index: 20;
+  }
+  .sheet {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 21;
+    background: var(--surface);
+    border-radius: 20px 20px 0 0;
+    padding: 10px 20px calc(20px + env(safe-area-inset-bottom));
+    max-height: 82vh;
+    overflow-y: auto;
+    box-shadow: 0 -8px 30px rgba(0,0,0,.25);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .sheet-handle {
+    width: 40px; height: 4px; border-radius: 3px;
+    background: var(--border);
+    margin: 6px auto 2px;
+  }
+  .sheet h2 { font-size: 1.15rem; font-weight: 600; }
+  .sheet h3 { font-size: .92rem; font-weight: 600; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 8px; }
+  .sheet section { display: flex; flex-direction: column; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+  .chip {
+    display: flex; align-items: center; gap: 7px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 5px 8px 5px 6px;
+    font-size: .88rem;
+  }
+  .chip .chip-avatar {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--accent-soft);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex: 0 0 auto;
+  }
+  .chip button {
+    border: none; background: transparent; color: var(--ink-faint);
+    cursor: pointer; font-size: .95rem; line-height: 1; padding: 2px 4px;
+  }
+  .chip button:hover { color: var(--danger); }
+
+  .cat-manage-list { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .cat-manage-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 10px;
+    background: var(--surface-2);
+    border-radius: 10px;
+    font-size: .9rem;
+  }
+  .cat-manage-row .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--cat-color, var(--accent)); flex: 0 0 auto; }
+  .cat-manage-row .lbl { flex: 1; }
+  .cat-manage-row button {
+    border: none; background: transparent; color: var(--ink-faint);
+    cursor: pointer; font-size: .95rem;
+  }
+  .cat-manage-row button:hover { color: var(--danger); }
+
+  .inline-form { display: flex; gap: 8px; }
+  .inline-form input {
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--ink);
+    border-radius: 10px;
+    padding: 9px 10px;
+    flex: 1;
+    min-width: 0;
+  }
+  .inline-form .emoji-input { flex: 0 0 56px; text-align: center; }
+  .inline-form button {
+    border: none;
+    background: var(--accent);
+    color: var(--accent-ink);
+    border-radius: 10px;
+    padding: 9px 14px;
+    font-weight: 600;
+    font-size: .88rem;
+    cursor: pointer;
+    flex: 0 0 auto;
+  }
+
+  .close-sheet {
+    align-self: stretch;
+    border: none;
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: 12px;
+    padding: 12px;
+    font-weight: 600;
+    font-size: .95rem;
+    cursor: pointer;
+    margin-top: 4px;
+  }
+
+  .hint {
+    font-size: .82rem;
+    color: var(--ink-faint);
+    margin: -6px 0 4px;
+  }
+
+  [hidden] { display: none !important; }
+
+  @media (max-width: 420px) {
+    .brand h1 { font-size: 1.15rem; }
+    .quickadd select { max-width: 108px; }
+  }
+</style>
+
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">🎁</span>
+      <h1>Make a Wish</h1>
+    </div>
+    <button id="settingsBtn" class="icon-btn" aria-label="Settings">⚙️</button>
+  </header>
+
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Categories"></nav>
+
+  <main class="content">
+    <form class="quickadd" id="quickadd" aria-label="Add a wish">
+      <input type="text" id="itemText" placeholder="What do you want?" maxlength="200" autocomplete="off" required />
+      <select id="itemAuthor" aria-label="Who's adding this"></select>
+      <button type="submit" class="add-btn" id="addBtn">Add</button>
+    </form>
+
+    <div class="state-block" id="loadingState">
+      <div class="glyph">✨</div>
+      <p>Loading your list…</p>
+    </div>
+
+    <div class="state-block" id="noFamilyState" hidden>
+      <div class="glyph">👋</div>
+      <h3>Add your family first</h3>
+      <p>Open settings and add everyone who'll be adding wishes.</p>
+    </div>
+
+    <div class="state-block" id="emptyState" hidden>
+      <div class="glyph" id="emptyGlyph">🌱</div>
+      <h3 id="emptyTitle">Nothing here yet</h3>
+      <p id="emptyText">Type your first wish in the box above — everyone will see it here.</p>
+    </div>
+
+    <ul class="item-list" id="itemList" hidden></ul>
+  </main>
+</div>
+
+<div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
+<div class="sheet" id="settingsSheet" hidden role="dialog" aria-modal="true" aria-label="Settings">
+  <div class="sheet-handle"></div>
+  <h2>Settings</h2>
+
+  <section>
+    <h3>Family</h3>
+    <div class="chips" id="familyChips"></div>
+    <form class="inline-form" id="addFamilyForm">
+      <input id="newFamilyName" placeholder="Name" maxlength="30" autocomplete="off" />
+      <button type="submit">Add</button>
+    </form>
+  </section>
+
+  <section>
+    <h3>Categories</h3>
+    <ul class="cat-manage-list" id="catManageList"></ul>
+    <p class="hint">A new category will appear as a tab next to the others.</p>
+    <form class="inline-form" id="addCatForm">
+      <input class="emoji-input" id="newCatEmoji" placeholder="🔖" maxlength="4" autocomplete="off" />
+      <input id="newCatLabel" placeholder="Category name" maxlength="24" autocomplete="off" />
+      <button type="submit">Add</button>
+    </form>
+  </section>
+
+  <button class="close-sheet" id="closeSheet">Done</button>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var DEFAULT_CATEGORIES = [
+    { id: "travel",   label: "Travel",          emoji: "🧳" },
+    { id: "shopping", label: "Shopping",        emoji: "🛍️" },
+    { id: "todo",     label: "To-Do",           emoji: "✅" },
+    { id: "outings",  label: "Outings",         emoji: "📍" },
+    { id: "movies",   label: "Movies & Shows",  emoji: "🎬" },
+    { id: "newyear",  label: "New Year",        emoji: "🎄" }
+  ];
+
+  var ANIMAL_AVATARS = [
+    "🦊", "🐶", "🐱", "🐰", "🐻", "🐼", "🐨", "🦁",
+    "🐯", "🐵", "🐷", "🐮", "🐸", "🐔", "🐧", "🦉",
+    "🐢", "🐬", "🐙", "🦄"
+  ];
+
+  var DEFAULT_FAMILY = [
+    { name: "Burak", avatar: "🐼" },
+    { name: "Nadya", avatar: "🐵" },
+    { name: "Alısa", avatar: "🦊" },
+    { name: "Maiya", avatar: "🐰" }
+  ];
+
+  var CAT_COLOR_VARS = {
+    travel: "--cat-travel", shopping: "--cat-shopping", todo: "--cat-todo",
+    outings: "--cat-outings", movies: "--cat-movies", newyear: "--cat-newyear"
+  };
+  var CAT_SOFT_VARS = {
+    travel: "--cat-travel-soft", shopping: "--cat-shopping-soft", todo: "--cat-todo-soft",
+    outings: "--cat-outings-soft", movies: "--cat-movies-soft", newyear: "--cat-newyear-soft"
+  };
+
+  var EMPTY_COPY = {
+    travel:   { glyph: "🧳", title: "Nowhere planned yet", text: "Add a place the whole family wants to visit." },
+    shopping: { glyph: "🛍️", title: "Shopping list is empty", text: "Add something you'd like to buy for yourself or the house." },
+    todo:     { glyph: "✅", title: "No to-dos yet", text: "Add something you want to get done — big or small." },
+    outings:  { glyph: "📍", title: "No outings yet", text: "A restaurant, a park, an event — add somewhere you'd like to go." },
+    movies:   { glyph: "🎬", title: "Nothing to watch", text: "Add a movie or show you want to watch together." },
+    newyear:  { glyph: "🎄", title: "New Year hasn't started yet", text: "Collect ideas and wishes for the holiday here." },
+    _default: { glyph: "🌱", title: "Nothing here yet", text: "Type your first wish in the box above." }
+  };
+
+  function catColorVar(id) { return CAT_COLOR_VARS[id] || "--cat-custom"; }
+  function catSoftVar(id) { return CAT_SOFT_VARS[id] || "--cat-custom-soft"; }
+  function avatarForName(name) {
+    var m = state.family.filter(function (x) { return x.name === name; })[0];
+    return m ? m.avatar : "👤";
+  }
+  function nextAvatar() {
+    var used = state.family.map(function (m) { return m.avatar; });
+    for (var i = 0; i < ANIMAL_AVATARS.length; i++) {
+      if (used.indexOf(ANIMAL_AVATARS[i]) === -1) return ANIMAL_AVATARS[i];
+    }
+    return ANIMAL_AVATARS[Math.floor(Math.random() * ANIMAL_AVATARS.length)];
+  }
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+
+  var state = {
+    db: null,
+    categories: DEFAULT_CATEGORIES.slice(),
+    family: [],
+    items: [],
+    activeCategory: null,
+    settingsOpen: false,
+    categoriesLoaded: false,
+    familyLoaded: false,
+    itemsLoaded: false
+  };
+
+  var els = {
+    tabs: document.getElementById("tabs"),
+    quickadd: document.getElementById("quickadd"),
+    itemText: document.getElementById("itemText"),
+    itemAuthor: document.getElementById("itemAuthor"),
+    addBtn: document.getElementById("addBtn"),
+    itemList: document.getElementById("itemList"),
+    loadingState: document.getElementById("loadingState"),
+    noFamilyState: document.getElementById("noFamilyState"),
+    emptyState: document.getElementById("emptyState"),
+    emptyGlyph: document.getElementById("emptyGlyph"),
+    emptyTitle: document.getElementById("emptyTitle"),
+    emptyText: document.getElementById("emptyText"),
+    settingsBtn: document.getElementById("settingsBtn"),
+    sheetBackdrop: document.getElementById("sheetBackdrop"),
+    settingsSheet: document.getElementById("settingsSheet"),
+    closeSheet: document.getElementById("closeSheet"),
+    familyChips: document.getElementById("familyChips"),
+    addFamilyForm: document.getElementById("addFamilyForm"),
+    newFamilyName: document.getElementById("newFamilyName"),
+    catManageList: document.getElementById("catManageList"),
+    addCatForm: document.getElementById("addCatForm"),
+    newCatEmoji: document.getElementById("newCatEmoji"),
+    newCatLabel: document.getElementById("newCatLabel")
+  };
+
+  // ---------- rendering ----------
+
+  function renderTabs() {
+    els.tabs.innerHTML = "";
+    state.categories.forEach(function (cat) {
+      var tab = document.createElement("button");
+      tab.type = "button";
+      tab.className = "tab" + (cat.id === state.activeCategory ? " active" : "");
+      tab.setAttribute("role", "tab");
+      tab.style.setProperty("--cat-color", "var(" + catColorVar(cat.id) + ")");
+      tab.style.setProperty("--cat-soft", "var(" + catSoftVar(cat.id) + ")");
+      tab.innerHTML = '<span class="emoji">' + esc(cat.emoji || "🔖") + "</span><span>" + esc(cat.label) + "</span>";
+      tab.addEventListener("click", function () {
+        state.activeCategory = cat.id;
+        renderTabs();
+        renderItems();
+        renderQuickaddColor();
+      });
+      els.tabs.appendChild(tab);
+    });
+  }
+
+  function renderQuickaddColor() {
+    var v = "var(" + catColorVar(state.activeCategory) + ")";
+    els.addBtn.style.setProperty("--cat-color", v);
+  }
+
+  function renderAuthorSelect() {
+    var prev = els.itemAuthor.value;
+    els.itemAuthor.innerHTML = "";
+    if (state.family.length === 0) {
+      var opt = document.createElement("option");
+      opt.value = "";
+      opt.textContent = "No names";
+      els.itemAuthor.appendChild(opt);
+      els.itemAuthor.disabled = true;
+    } else {
+      els.itemAuthor.disabled = false;
+      state.family.forEach(function (m) {
+        var opt = document.createElement("option");
+        opt.value = m.name;
+        opt.textContent = m.avatar + " " + m.name;
+        els.itemAuthor.appendChild(opt);
+      });
+      if (state.family.some(function (m) { return m.name === prev; })) els.itemAuthor.value = prev;
+    }
+  }
+
+  function renderFamilyChips() {
+    els.familyChips.innerHTML = "";
+    if (state.family.length === 0) {
+      var p = document.createElement("p");
+      p.className = "hint";
+      p.style.margin = "0 0 4px";
+      p.textContent = "No one yet — add the first name below.";
+      els.familyChips.appendChild(p);
+      return;
+    }
+    state.family.forEach(function (m) {
+      var chip = document.createElement("span");
+      chip.className = "chip";
+      chip.innerHTML = '<span class="chip-avatar">' + esc(m.avatar) + "</span><span>" + esc(m.name) + "</span>";
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.setAttribute("aria-label", "Remove " + m.name);
+      btn.textContent = "✕";
+      btn.addEventListener("click", function () { removeFamilyMember(m.name); });
+      chip.appendChild(btn);
+      els.familyChips.appendChild(chip);
+    });
+  }
+
+  function renderCatManageList() {
+    els.catManageList.innerHTML = "";
+    state.categories.forEach(function (cat) {
+      var row = document.createElement("li");
+      row.className = "cat-manage-row";
+      row.style.setProperty("--cat-color", "var(" + catColorVar(cat.id) + ")");
+      var dot = document.createElement("span");
+      dot.className = "dot";
+      var lbl = document.createElement("span");
+      lbl.className = "lbl";
+      lbl.textContent = (cat.emoji || "🔖") + " " + cat.label;
+      row.appendChild(dot);
+      row.appendChild(lbl);
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = "✕";
+      btn.setAttribute("aria-label", "Remove category " + cat.label);
+      btn.addEventListener("click", function () { removeCategory(cat.id); });
+      row.appendChild(btn);
+      els.catManageList.appendChild(row);
+    });
+  }
+
+  function renderItems() {
+    var cat = state.activeCategory;
+    var list = state.items.filter(function (it) { return it.category === cat; });
+
+    els.loadingState.hidden = true;
+
+    if (state.family.length === 0) {
+      els.noFamilyState.hidden = false;
+      els.emptyState.hidden = true;
+      els.itemList.hidden = true;
+      return;
+    }
+    els.noFamilyState.hidden = true;
+
+    if (list.length === 0) {
+      var copy = EMPTY_COPY[cat] || EMPTY_COPY._default;
+      els.emptyGlyph.textContent = copy.glyph;
+      els.emptyTitle.textContent = copy.title;
+      els.emptyText.textContent = copy.text;
+      els.emptyState.hidden = false;
+      els.itemList.hidden = true;
+      return;
+    }
+    els.emptyState.hidden = true;
+    els.itemList.hidden = false;
+
+    els.itemList.innerHTML = "";
+    list.forEach(function (it) {
+      var li = document.createElement("li");
+      li.className = "item" + (it.done ? " done" : "");
+      li.style.setProperty("--cat-color", "var(" + catColorVar(it.category) + ")");
+
+      var check = document.createElement("button");
+      check.type = "button";
+      check.className = "item-check";
+      check.setAttribute("aria-label", it.done ? "Mark as not done" : "Mark as done");
+      check.textContent = it.done ? "✓" : "";
+      check.addEventListener("click", function () { toggleDone(it); });
+
+      var body = document.createElement("div");
+      body.className = "item-body";
+      var text = document.createElement("div");
+      text.className = "item-text";
+      text.textContent = it.text;
+      var meta = document.createElement("div");
+      meta.className = "item-meta";
+      var chip = document.createElement("span");
+      chip.className = "author-chip";
+      chip.textContent = it.author ? (avatarForName(it.author) + " " + it.author) : "—";
+      meta.appendChild(chip);
+      body.appendChild(text);
+      body.appendChild(meta);
+
+      var del = document.createElement("button");
+      del.type = "button";
+      del.className = "item-delete";
+      del.setAttribute("aria-label", "Delete wish");
+      del.textContent = "🗑";
+      del.addEventListener("click", function () { deleteItem(it); });
+
+      li.appendChild(check);
+      li.appendChild(body);
+      li.appendChild(del);
+      els.itemList.appendChild(li);
+    });
+  }
+
+  function renderAll() {
+    renderTabs();
+    renderQuickaddColor();
+    renderAuthorSelect();
+    renderFamilyChips();
+    renderCatManageList();
+    renderItems();
+  }
+
+  // ---------- data actions ----------
+
+  function addItem(text, author) {
+    if (!state.db || !state.activeCategory) return;
+    var body = {
+      text: text,
+      category: state.activeCategory,
+      author: author || "",
+      done: false,
+      createdAt: Date.now()
+    };
+    state.db.collection("items").add(body).catch(function () {});
+  }
+
+  function toggleDone(it) {
+    if (!state.db) return;
+    state.db.doc("items/" + it.id).update({ done: !it.done }).catch(function () {});
+  }
+
+  function deleteItem(it) {
+    if (!state.db) return;
+    state.db.doc("items/" + it.id).delete().catch(function () {});
+  }
+
+  function addFamilyMember(name, avatar) {
+    if (!state.db || !name) return;
+    var exists = state.family.some(function (m) { return m.name === name; });
+    var next = exists ? state.family : state.family.concat([{ name: name, avatar: avatar || ANIMAL_AVATARS[0] }]);
+    state.db.doc("meta/family").set({ members: next }).catch(function () {});
+  }
+
+  function removeFamilyMember(name) {
+    if (!state.db) return;
+    var next = state.family.filter(function (m) { return m.name !== name; });
+    state.db.doc("meta/family").set({ members: next }).catch(function () {});
+  }
+
+  function addCategory(label, emoji) {
+    if (!state.db || !label) return;
+    var id = "c" + uid();
+    var next = state.categories.concat([{ id: id, label: label, emoji: emoji || "🔖" }]);
+    state.db.doc("meta/categories").set({ list: next }).then(function () {
+      state.activeCategory = id;
+    }).catch(function () {});
+  }
+
+  function removeCategory(id) {
+    if (!state.db) return;
+    var used = state.items.some(function (it) { return it.category === id; });
+    if (used) {
+      window.alert("This category still has wishes in it. Delete or check them off first, then you can remove the category.");
+      return;
+    }
+    if (state.categories.length <= 1) {
+      window.alert("At least one category must remain.");
+      return;
+    }
+    var next = state.categories.filter(function (c) { return c.id !== id; });
+    state.db.doc("meta/categories").set({ list: next }).then(function () {
+      if (state.activeCategory === id) state.activeCategory = next[0].id;
+    }).catch(function () {});
+  }
+
+  // ---------- settings sheet ----------
+
+  function openSheet() {
+    state.settingsOpen = true;
+    els.sheetBackdrop.hidden = false;
+    els.settingsSheet.hidden = false;
+  }
+  function closeSheetFn() {
+    state.settingsOpen = false;
+    els.sheetBackdrop.hidden = true;
+    els.settingsSheet.hidden = true;
+  }
+
+  els.settingsBtn.addEventListener("click", openSheet);
+  els.closeSheet.addEventListener("click", closeSheetFn);
+  els.sheetBackdrop.addEventListener("click", closeSheetFn);
+
+  els.addFamilyForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = els.newFamilyName.value.trim();
+    if (!name) return;
+    addFamilyMember(name, nextAvatar());
+    els.newFamilyName.value = "";
+  });
+
+  els.addCatForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var label = els.newCatLabel.value.trim();
+    if (!label) return;
+    addCategory(label, els.newCatEmoji.value.trim());
+    els.newCatLabel.value = "";
+    els.newCatEmoji.value = "";
+  });
+
+  els.quickadd.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var text = els.itemText.value.trim();
+    var author = els.itemAuthor.value;
+    if (!text || !author) return;
+    addItem(text, author);
+    els.itemText.value = "";
+  });
+
+  // ---------- db wiring ----------
+
+  function initCategoriesDoc(db) {
+    var ref = db.doc("meta/categories");
+    ref.get().then(function (snap) {
+      if (!snap.exists) {
+        ref.set({ list: DEFAULT_CATEGORIES }).catch(function () {});
+      }
+    }).catch(function () {});
+    ref.onSnapshot(function (snap) {
+      var data = snap.exists ? snap.data() : null;
+      var list = (data && Array.isArray(data.list) && data.list.length) ? data.list : DEFAULT_CATEGORIES;
+      state.categories = list;
+      state.categoriesLoaded = true;
+      if (!state.activeCategory || !list.some(function (c) { return c.id === state.activeCategory; })) {
+        state.activeCategory = list[0].id;
+      }
+      renderAll();
+    });
+  }
+
+  function initFamilyDoc(db) {
+    var ref = db.doc("meta/family");
+    ref.get().then(function (snap) {
+      if (!snap.exists) ref.set({ members: DEFAULT_FAMILY }).catch(function () {});
+    }).catch(function () {});
+    ref.onSnapshot(function (snap) {
+      var data = snap.exists ? snap.data() : null;
+      if (data && Array.isArray(data.members)) {
+        state.family = data.members;
+      } else if (data && Array.isArray(data.names)) {
+        // legacy shape: plain name strings, upgrade in memory to {name, avatar}
+        state.family = data.names.map(function (n, i) {
+          return { name: n, avatar: ANIMAL_AVATARS[i % ANIMAL_AVATARS.length] };
+        });
+      } else {
+        state.family = [];
+      }
+      state.familyLoaded = true;
+      renderAll();
+      if (state.family.length === 0 && !state.settingsOpen && state.familyLoaded && state.categoriesLoaded) {
+        openSheet();
+      }
+    });
+  }
+
+  function initItems(db) {
+    db.collection("items").orderBy("createdAt", "desc").onSnapshot(function (qs) {
+      state.items = qs.docs.map(function (d) {
+        var data = d.data() || {};
+        return {
+          id: d.id,
+          text: data.text || "",
+          category: data.category,
+          author: data.author || "",
+          done: !!data.done,
+          createdAt: data.createdAt || 0
+        };
+      });
+      state.itemsLoaded = true;
+      renderItems();
+    });
+  }
+
+  // ---------- Firebase Realtime Database backend ----------
+  // This app talks directly to your own Firebase project - no Claude
+  // involved at runtime. FIREBASE_DB_URL is the only thing that ties it
+  // to your data; it comes from the Realtime Database page in your
+  // Firebase console (looks like https://<project>-default-rtdb.<region>.firebasedatabase.app).
+  var FIREBASE_DB_URL = "https://makeawish-fa330-default-rtdb.europe-west1.firebasedatabase.app";
+
+  function genId() { return "id" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+
+  function makeFirebaseDb(baseUrl) {
+    function urlFor(path) { return baseUrl + "/" + path + ".json"; }
+
+    function snapFromValue(path, value) {
+      var exists = value !== null && value !== undefined;
+      return { id: path.split("/").pop(), exists: exists, data: function () { return exists ? value : undefined; } };
+    }
+
+    function docRef(path) {
+      return {
+        id: path.split("/").pop(), path: path,
+        get: function () {
+          return fetch(urlFor(path)).then(function (r) { return r.json(); }).then(function (value) {
+            return snapFromValue(path, value);
+          });
+        },
+        set: function (data) {
+          return fetch(urlFor(path), { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) }).then(function () {});
+        },
+        update: function (data) {
+          return fetch(urlFor(path), { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) }).then(function () {});
+        },
+        "delete": function () {
+          return fetch(urlFor(path), { method: "DELETE" }).then(function () {});
+        },
+        onSnapshot: function (next) {
+          var last = null, stopped = false;
+          function poll() {
+            if (stopped) return;
+            fetch(urlFor(path)).then(function (r) { return r.json(); }).then(function (value) {
+              var key = JSON.stringify(value);
+              if (key !== last) { last = key; next(snapFromValue(path, value)); }
+            }).catch(function () {});
+          }
+          poll();
+          var iv = setInterval(poll, 600);
+          return function () { stopped = true; clearInterval(iv); };
+        },
+        collection: function (sub) { return collRef(path + "/" + sub); }
+      };
+    }
+
+    function collRef(path) {
+      var ref = {
+        path: path,
+        doc: function (id) { return docRef(path + "/" + (id || genId())); },
+        add: function (data) {
+          var id = genId();
+          return docRef(path + "/" + id).set(data).then(function () { return docRef(path + "/" + id); });
+        },
+        orderBy: function () { return ref; },
+        where: function () { return ref; },
+        limit: function () { return ref; },
+        onSnapshot: function (next) {
+          var last = null, stopped = false;
+          function poll() {
+            if (stopped) return;
+            fetch(urlFor(path)).then(function (r) { return r.json(); }).then(function (value) {
+              var key = JSON.stringify(value);
+              if (key !== last) {
+                last = key;
+                var obj = value || {};
+                var docs = Object.keys(obj).map(function (id) {
+                  var d = obj[id];
+                  return { id: id, exists: true, data: function () { return d; } };
+                });
+                docs.sort(function (a, b) { return (b.data().createdAt || 0) - (a.data().createdAt || 0); });
+                next({ docs: docs, size: docs.length, empty: docs.length === 0, docChanges: function () { return []; } });
+              }
+            }).catch(function () {});
+          }
+          poll();
+          var iv = setInterval(poll, 600);
+          return function () { stopped = true; clearInterval(iv); };
+        }
+      };
+      return ref;
+    }
+
+    return { doc: docRef, collection: collRef };
+  }
+
+  function boot() {
+    renderAll();
+
+    if (!FIREBASE_DB_URL || FIREBASE_DB_URL.indexOf("PLACEHOLDER") !== -1) {
+      els.loadingState.innerHTML = '<div class="glyph">🔌</div><p>This app isn\'t connected to a database yet. Set FIREBASE_DB_URL in the code.</p>';
+      return;
+    }
+
+    var db = makeFirebaseDb(FIREBASE_DB_URL);
+    state.db = db;
+    initCategoriesDoc(db);
+    initFamilyDoc(db);
+    initItems(db);
+  }
+
+  boot();
+})();
+</script>
